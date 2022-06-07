@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-extension ExpenseLog: Identifiable {
+extension ExpenseLog {
     
     var categoryEnum: Category {
         Category(rawValue: category ?? "") ?? .other
@@ -21,6 +21,10 @@ extension ExpenseLog: Identifiable {
     
     var nameText: String {
         name ?? ""
+    }
+    
+    var noteText: String {
+        note ?? ""
     }
     
     var amountText: String {

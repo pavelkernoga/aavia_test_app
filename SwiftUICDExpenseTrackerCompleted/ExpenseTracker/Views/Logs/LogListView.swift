@@ -46,6 +46,7 @@ struct LogListView: View {
                         VStack(alignment: .leading, spacing: 8) {
                             Text(log.nameText).font(.headline)
                             Text(log.dateText).font(.subheadline)
+                            Text(log.noteText).font(.subheadline)
                         }
                         Spacer()
                         Text(log.amountText).font(.headline)
@@ -65,7 +66,8 @@ struct LogListView: View {
                     name: log.name ?? "",
                     amount: log.amount?.doubleValue ?? 0,
                     category: Category(rawValue: log.category ?? "") ?? .food,
-                    date: log.date ?? Date()
+                    date: log.date ?? Date(),
+                    note: log.note ?? ""
                 )
             }
         }
