@@ -47,17 +47,28 @@ struct DashboardTabView: View {
                     ForEach(self.categoriesSum!) {
                         CategoryRowView(category: $0.category, sum: $0.sum)
                     }
+                    .listRowBackground(Colors.ListRowCustomColor)
                 }
             }
             
             if totalExpenses == nil && categoriesSum == nil {
-                Text("No expenses data\nPlease add your expenses from the logs tab")
-                    .multilineTextAlignment(.center)
-                    .font(.headline)
-                    .padding(.horizontal)
+                ZStack {
+                    Colors.BackgroundCustomColor.edgesIgnoringSafeArea(.all)
+                    
+                    Group {
+                        ZStack {
+                            Image("no_expenses_image")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill).edgesIgnoringSafeArea(.top)
+                            Text("No expenses data\nPlease add your expenses from the logs tab")
+                                .multilineTextAlignment(.center)
+                                .font(.headline)
+                                .padding(.horizontal)
+                        }
+                    }
+                }
             }
         }
-        .padding(.top)
         .onAppear(perform: fetchTotalSums)
     }
     

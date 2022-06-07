@@ -22,16 +22,23 @@ struct LogsTabView: View {
     @State var selectedCategories: Set<Category> = Set()
     @State var isAddFormPresented: Bool = false
     
+    let gradient = LinearGradient(colors: [Color.blue,Color.orange],
+                                  startPoint: .top, endPoint: .bottom)
+    
     var body: some View {
         NavigationView {
-            VStack(spacing: 0) {
-                SearchBar(text: $searchText, keyboardHeight: $searchBarHeight, placeholder: "Search expenses")
-                FilterCategoriesView(selectedCategories: $selectedCategories)
-                Divider()
-                SelectSortOrderView(sortType: $sortType, sortOrder: $sortOrder)
-                Divider()
-                LogListView(predicate: ExpenseLog.predicate(with: Array(selectedCategories), searchText: searchText), sortDescriptor: ExpenseLogSort(sortType: sortType, sortOrder: sortOrder).sortDescriptor)
+            ZStack {
+                gradient.opacity(0.25).edgesIgnoringSafeArea(.all)
+                VStack(spacing: 0) {
+                    SearchBar(text: $searchText, keyboardHeight: $searchBarHeight, placeholder: "Search expenses")
+                    FilterCategoriesView(selectedCategories: $selectedCategories)
+                    Divider()
+                    SelectSortOrderView(sortType: $sortType, sortOrder: $sortOrder)
+                    Divider()
+                    LogListView(predicate: ExpenseLog.predicate(with: Array(selectedCategories), searchText: searchText), sortDescriptor: ExpenseLogSort(sortType: sortType, sortOrder: sortOrder).sortDescriptor)
+                }
             }
+            
             .padding(.bottom, searchBarHeight)
             .sheet(isPresented: $isAddFormPresented) {
                 LogFormView(context: self.context)
@@ -44,8 +51,6 @@ struct LogsTabView: View {
     func addTapped() {
         isAddFormPresented = true
     }
-    
-    
     
 }
 

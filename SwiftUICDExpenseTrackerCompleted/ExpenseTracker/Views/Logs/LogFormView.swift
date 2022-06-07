@@ -27,7 +27,6 @@ struct LogFormView: View {
         logToEdit == nil ? "Create Expense Log" : "Edit Expense Log"
     }
     
-    
     var body: some View {
         NavigationView {
             Form {
@@ -49,7 +48,7 @@ struct LogFormView: View {
             }
 
             .navigationBarItems(
-                leading: Button(action: self.onCancelTapped) { Text("Cancel")},
+                leading: Button(action: self.onCancelTapped) { Text("Cancel").foregroundColor(.red)},
                 trailing: Button(action: self.onSaveTapped) { Text("Save")}
             ).navigationBarTitle(title)
             

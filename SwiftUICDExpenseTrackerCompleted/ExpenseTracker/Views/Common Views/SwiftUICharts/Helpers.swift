@@ -28,6 +28,10 @@ public struct Colors {
     public static let GradientLowerBlue:Color = Color(hexString: "#F1F9FF")
     public static let DarkPurple:Color = Color(hexString: "#1B205E")
     public static let BorderBlue:Color = Color(hexString: "#4EBCFF")
+    public static let TabBarCustomColor: Color = Color(hexString: "#dbd4f8")
+    public static let ListRowCustomColor: Color = Color(hexString: "#dbd4f8a6")
+    public static let BackgroundCustomColor: Color = Color(hexString: "#e5e3f6")
+    public static let ListBackroundCustomColor: Color = Color(hexString: "#bedee8")
 }
 
 public struct GradientColor {

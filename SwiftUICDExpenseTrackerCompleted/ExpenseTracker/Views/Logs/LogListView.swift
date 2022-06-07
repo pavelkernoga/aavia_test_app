@@ -57,6 +57,8 @@ struct LogListView: View {
             }
                
             .onDelete(perform: onDelete)
+            .listRowBackground(Colors.ListRowCustomColor)
+            
             .sheet(item: $logToEdit, onDismiss: {
                 self.logToEdit = nil
             }) { (log: ExpenseLog) in
