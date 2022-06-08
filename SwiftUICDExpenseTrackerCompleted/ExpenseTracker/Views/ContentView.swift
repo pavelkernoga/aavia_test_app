@@ -11,15 +11,11 @@ import SwiftUI
 struct ContentView: View {
     
     init() {
-        if #available(iOS 14.0, *) {
-            UITabBar.appearance().backgroundColor = UIColor(Colors.TabBarCustomColor)
-            UITableView.appearance().backgroundColor = UIColor(Colors.ListBackroundCustomColor)
-            UINavigationBar.appearance().titleTextAttributes = [.font : UIFont(name: "Georgia-Bold", size: 20)!]
-        } else {
-            UITabBar.appearance().backgroundColor = UIColor(red: 219, green: 212, blue: 248, alpha: 1)
-            UITableView.appearance().backgroundColor = UIColor(red: 190, green: 222, blue: 232, alpha: 1)
-        }
-     }
+        UITabBar.appearance().backgroundColor = UIColor(Colors.TabBarCustomColor)
+        UITableView.appearance().backgroundColor = UIColor(Colors.ListBackroundCustomColor)
+        UINavigationBar.appearance().titleTextAttributes = [.font : UIFont(name: "Georgia-Bold", size: 20)!]
+        
+    }
     
     var body: some View {
         TabView {
@@ -40,6 +36,15 @@ struct ContentView: View {
                     }
             }
             .tag(1)
+            
+            MonthlySummaryTabView()
+                .tabItem {
+                    VStack {
+                        Text("Monthly Summary")
+                        Image(systemName: "calendar")
+                    }
+                }
+                .tag(2)
         }
         .accentColor(.red)
     }
