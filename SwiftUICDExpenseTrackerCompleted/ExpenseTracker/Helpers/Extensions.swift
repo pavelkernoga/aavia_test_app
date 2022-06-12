@@ -15,7 +15,3 @@ extension Double {
     }
     
 }
-
-extension UserDefaults {
-    static let totalSum = "totalSum"
-}

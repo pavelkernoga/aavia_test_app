@@ -17,6 +17,7 @@ struct DashboardTabView: View {
     @State var totalExpenses: Double?
     @State var categoriesSum: [CategorySum]?
     @State private var currencyExchange = CurrencyExchange.usd
+    @State private var cof: Double = 1.0
     var model: ResponseData?
     
     var body: some View {
@@ -48,14 +49,7 @@ struct DashboardTabView: View {
                         })
                     })
                         .onChange(of: currencyExchange, perform: { tag in
-                            if tag == .eur {
-                                fetchTotalSums()
-                            }
-                            if tag == .usd {
-                                if let previousSum = UserDefaults.standard.value(forKey: UserDefaults.totalSum) as? Double {
-                                    totalExpenses = previousSum
-                                }
-                            }
+                            fetchTotalSums()
                         })
                         .pickerStyle(SegmentedPickerStyle())
                         .padding(.all)
@@ -101,19 +95,24 @@ struct DashboardTabView: View {
             
             let totalSum = results.map { $0.sum }.reduce(0, +)
             
-            if currencyExchange == CurrencyExchange.eur {
+            switch currencyExchange {
+            case .usd:
+                self.totalExpenses = totalSum
+                self.categoriesSum = results.map({ (result) -> CategorySum in
+                    return CategorySum(sum: result.sum, category: result.category)
+                })
+            case .eur:
                 RequestManager.shared.makePostCall(value: totalSum, fromCurrency: "USD", toCurrency: "EUR", completion: { response in
                     self.totalExpenses = response?.amount
+                    self.cof = response?.rate ?? 1.0
+                    self.categoriesSum = results.map({ (result) -> CategorySum in
+                        return CategorySum(sum: result.sum * cof, category: result.category)
+                    })
                 })
             }
-            
-            self.totalExpenses = totalSum
-            UserDefaults.standard.setValue(totalExpenses, forKey: UserDefaults.totalSum)
-            self.categoriesSum = results.map({ (result) -> CategorySum in
-                return CategorySum(sum: result.sum, category: result.category)
-            })
         }
     }
+    
 }
 
 
